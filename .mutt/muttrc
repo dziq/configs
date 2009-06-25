@@ -1,0 +1,93 @@
+set realname = "Your Name"
+set sendmail="/usr/bin/msmtp"
+set editor="vim -c 'set ft=mail'"
+set fast_reply=yes
+set beep=no
+set status_on_top
+set delete=yes
+set sort=threads
+set send_charset="utf-8"
+set charset="utf-8"
+my_hdr X-OS: `uname -or`
+my_hdr X-Editor: `vim --version | head -n1`
+
+#Pager
+set pager_index_lines = 1
+set pager_stop=yes
+set pager_index_lines = 12
+set pager_context=1
+# Index options
+set menu_scroll=yes
+set menu_context = 1
+set date_format="%d %b %y at %H:%M %Z"    # Used by %d from index_format
+set index_format="%5C %Z  %D   %-22.22F  (%?l?%4l&%4c?)  %s"
+
+
+
+set mbox_type=Maildir
+set folder=~/.Mail/
+set record=~/.Mail/mailboxes/sent
+set postponed=~/.Mail/mailboxes/TODO
+set header_cache=~/.mutt/.hcache
+set spoolfile=~/.Mail/mailboxes/sent
+mailboxes '~/.Mail/mailboxes/accunt1' '~/.Mail/mailboxes/account2' '~/.Mail/mailboxes/account3' '~/.Mail/mailboxes/account4' '~/.Mail/mailboxes/sent' '~/.Mail/mailboxes/TODO'
+
+## deklaracja listy skrzynek - wymagany patch sidebar
+ # szerokość
+ set sidebar_width=25
+ # czy ma być domyślnie widoczny
+ set sidebar_visible=yes
+ set sidebar_delim='|' 
+ # deklaracja skrótów do poruszania się pod sidebar:
+ # Ctrl + p, Ctrl + n, Ctrl + o  
+ bind index \CP sidebar-prev
+ bind index \CN sidebar-next
+ bind index \CO sidebar-open
+ bind pager \CP sidebar-prev
+ bind pager \CN sidebar-next
+ bind pager \CO sidebar-open
+ 
+ # deklaracja które informacje nagłówka listu mają być wyświetlane
+ ignore *
+ unignore  Date To From: Subject
+ hdr_order From Date To Subject
+ 
+ ## import zewnętrznych plików
+ # podpis dodawany do każdego maila
+ macro pager \cb <pipe-entry>'urlview'<enter> 'Follow links with urlview'
+ macro pager \cb <pipe-entry>'urlview'<enter> 'Follow links with urlview'
+
+ #wysyłanie z róznych kont
+ macro compose "\ca1" ':set sendmail="/usr/bin/msmtp --account account1"<enter>;:set compose_format="account1 -- Mutt: Compose [Approx. msg size: %l Atts: %a]%>-"<enter>' 'account1'
+ macro compose "\ca2" ':set sendmail="/usr/bin/msmtp --account account3"<enter>;:set compose_format="account3 -- Mutt: Compose [Approx. msg size: %l Atts: %a]%>-"<enter>' 'account3'
+ 
+ macro compose "\ca3" ':set sendmail="/usr/bin/msmtp --account account2"<enter>;:set compose_format="account2 -- Mutt: Compose [Approx. msg size: %l Atts: %a]%>-"<enter>' 'account2'
+
+ macro compose "\ca4" ':set sendmail="/usr/bin/msmtp --account account4"<enter>;:set compose_format="account4 -- Mutt: Compose [Approx. msg size: %l Atts: %a]%>-"<enter>' 'account4'
+
+
+source ~/.mutt/addressbook
+source ~/.mutt/colors
+#source ~/.Mail/muttrc.mailboxes
+auto_view text/html
+
+
+#PGP
+set pgp_decode_command="gpg %?p?--passphrase-fd 0? --no-verbose --batch --output - %f"
+set pgp_verify_command="gpg --no-verbose --batch --output - --verify %s %f"
+set pgp_decrypt_command="gpg --passphrase-fd 0 --no-verbose --batch --output - %f"
+set pgp_sign_command="gpg --no-verbose --batch --output - --passphrase-fd 0 --armor --detach-sign --textmode %?a?-u %a? %f"
+set pgp_clearsign_command="gpg --no-verbose --batch --output - --passphrase-fd 0 --armor --textmode --clearsign %?a?-u %a? %f"
+set pgp_encrypt_only_command="pgpewrap gpg --batch --quiet --no-verbose --output - --encrypt --textmode --armor --always-trust --encrypt-to X12376jqw -- -r %r -- %f"
+set pgp_encrypt_sign_command="pgpewrap gpg --passphrase-fd 0 --batch --quiet --no-verbose --textmode --output - --encrypt --sign %?a?-u %a? --armor --always-trust --encrypt-to 123ssd -- -r %r -- %f"
+set pgp_import_command="gpg --no-verbose --import -v %f"
+set pgp_export_command="gpg --no-verbose --export --armor %r"
+set pgp_verify_key_command="gpg --no-verbose --batch --fingerprint --check-sigs %r"
+set pgp_list_pubring_command="gpg --no-verbose --batch --with-colons --list-keys %r" 
+set pgp_list_secring_command="gpg --no-verbose --batch --with-colons --list-secret-keys %r" 
+set pgp_autosign=yes
+set pgp_sign_as=asdasdqwe
+set pgp_replyencrypt=no
+set pgp_timeout=1800
+set pgp_good_sign="^gpg: Good signature from"
+

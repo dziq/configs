@@ -1,0 +1,56 @@
+[mbnames]
+enabled = yes
+filename = ~/.Mail/muttrc.mailboxes
+header = "mailboxes "
+peritem = "~/.Mail/%(accountname)s/%(foldername)s"
+sep = " "
+footer = "\n"
+
+
+
+[general]
+# change to whatever you want:
+accounts = account1,account2
+maxsyncaccounts = 4
+# Gives you a nice blinky output on the console so you know what's happening:
+ui = Curses.Blinkenlights 
+
+# If uncommented, this would show nothing at all. Great for cronjobs or background-processes:
+#ui = Noninteractive.Quiet 
+
+[Account account1]
+localrepository = account1-local 
+remoterepository = account1-remote 
+autorefresh = 5 
+
+[Account account2]
+localrepository = account2-local
+remoterepository = account2-remote
+autorefresh = 5 
+
+[Repository account1-local]
+type = Maildir 
+localfolders = ~/.Mail/account1
+
+[Repository account1-remote]
+type = Gmail 
+remotehost = imap.gmail.com 
+remoteuser = username
+remotepass = pass
+ssl = yes
+realdelete = no
+folderfilter = lambda foldername: foldername in ['INBOX']
+
+
+[Repository account2-local]
+type = Maildir
+localfolders = ~/.Mail/account2
+
+[Repository account2-remote]
+type = Gmail
+remotehost = imap.gmail.com
+remoteuser = user
+remotepass = pass
+ssl = yes
+realdelete = no
+folderfilter = lambda foldername: foldername in ['INBOX']

@@ -1,0 +1,29 @@
+use_xft yes
+xftfont fixed:size=8
+update_interval 1
+#own_window_colour black
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_transparent yes
+own_window_type override
+own_window yes
+double_buffer yes
+minimum_size 1000
+maximum_width 1280
+draw_shades no
+draw_outline no
+draw_borders no
+stippled_borders 0
+border_margin 5
+border_width 1
+default_color 42c4d3
+alignment top_left
+gap_x 200
+gap_y 5
+no_buffers yes
+uppercase no
+override_utf8_locale yes
+use_spacer none
+cpu_avg_samples 2
+
+TEXT
+${color}CPU0:${color ffffff} ${cpu cpu0}% //  ${color}RAM:${color ffffff} ${mem}  //  ${color}Root: ${color ffffff}${fs_free_perc /}% ${color}Home: ${color ffffff}${fs_free_perc /home}% ${color} // ${color}Pacman: ${color ffffff}${execi 300 perl /home/dziq/bin/conky-updates.pl} // ${color}Adapter: ${color ffffff}${acpiacadapter} ${color}Bat: ${color ffffff}${battery_percent BAT1}${if_existing /sys/class/net/wlan0/operstate up} ${color grey} | $color Net: ${color grey}Up:$color ${upspeed wlan0} k/s${color grey} - Down:$color ${downspeed wlan0}${color grey} k/s${endif}${if_existing /sys/class/net/eth0/operstate unknown} $color Net: ${color grey}Up:$color ${upspeed eth0} k/s${color grey} - Down:$color ${downspeed eth0} - ${color grey}${color grey} k/s${color grey}${endif}

@@ -1,0 +1,229 @@
+Xcursor.theme: Human
+Xft.dpi:100
+URxvt.font:     -misc-fixed-medium-r-*-*-10-*-*-*-*-*-iso10646-1
+URxvt.boldFont:  -misc-fixed-medium-r-*-*-10-*-*-*-*-*-iso10646-1
+!URxvt.font: xft:Inconsolata:pixelsize=13
+
+!!! URXVT Settings
+!URxvt*background:grey10
+URxvt*cursorColor:#ffffff
+URxvt*name: Terminal
+URxvt*title: Terminal
+URxvt.geometry: 80x25
+URxvt.scrollBar: false
+URxvt.xftAntialias: true
+!URxvt*depth:                32
+!URxvt*background:        rgba:0000/0000/0000/cccc
+URxvt*perl-ext-common: selection-autotransform,matcher
+URxvt*urlLauncher: firefox
+URxvt*matcher.button: 1
+Urxvt.inheritPixmap: true
+!URxvt.transparent: true
+!URxvt.tintColor:white
+!URxvt.shading: 30
+URxvt.jumpScroll: True
+URxvt.scrollstyle: plain
+URxvt.loginShell: False
+URxvt.scrollBar_floating: False
+URxvt.scrollTtyOutput: False
+URxvt.scrollTtyKeypress: True
+URxvt.scrollWithBuffer: True
+URxvt.saveLines: 5000
+URxvt.internalBorder: 0
+URxvt.externalBorder: 0
+URxvt.cursorBlink: True
+URxvt.visualBell: False
+URxvt.urgentOnBell:  true
+!URxvt.borderLess:	true
+
+!!! XTERM Settings
+xterm*termName:                 xterm
+xterm*locale:                   true
+xterm*utf8:                     1
+xterm*eightBitInput:            false
+xterm*metaSendsEscape:          true
+xterm*urgentOnBell: true
+xterm*boldMode:                 false
+xterm*font:                                 -misc-fixed-medium-r-*-*-10-*-*-*-*-*-iso10646-1
+xterm*boldFont:                     -misc-fixed-medium-r-*-*-10-*-*-*-*-*-iso10646-1
+!xterm*faceName:     Lucida Console
+!xterm*faceSize:     8
+xterm*geometry:                 100x30
+
+
+!!!!THEMES!!!!!
+
+!! Zenburn
+!xterm*background:  #3f3f3f
+!xterm*foreground:  #dcdccc
+!xterm*color0:      #1E2320
+!xterm*color1:      #705050
+!xterm*color2:      #60b48a
+!xterm*color3:      #dfaf8f
+!xterm*color4:      #506070
+!xterm*color5:      #dc8cc3
+!xterm*color6:      #8cd0d3
+!xterm*color7:      #dcdccc
+!xterm*color8:      #709080
+!xterm*color9:      #dca3a3
+!xterm*color10:     #c3bf9f
+!xterm*color11:     #f0dfaf
+!xterm*color12:     #94bff3
+!xterm*color13:     #ec93d3
+!xterm*color14:     #93e0e3
+!xterm*color15:     #ffffff
+!!! end of options (xterm)
+
+
+!Theme Seventeen - more at http://phraktured.net/terminal-colors/
+
+!urxvt*background: rgb:1d/2b/3a
+!urxvt*foreground: rgb:be/be/be
+!black
+!urxvt*color0:     rgb:00/00/00
+!urxvt*color8:     rgb:66/66/66
+!red
+!urxvt*color1:     rgb:d3/62/65
+!urxvt*color9:     rgb:ef/81/71
+!green
+!urxvt*color2:     rgb:ae/ce/91
+!urxvt*color10:    rgb:e5/f7/79
+!yellow
+!urxvt*color3:     rgb:e7/e1/8c
+!urxvt*color11:    rgb:ff/f7/99
+!blue
+!urxvt*color4:     rgb:7a/7a/b0
+!urxvt*color12:    rgb:41/86/be
+!magenta
+!urxvt*color5:     rgb:96/3c/59
+!urxvt*color13:    rgb:ef/9e/be
+!cyan
+!urxvt*color6:     rgb:41/81/79
+!urxvt*color14:    rgb:71/be/be
+!white
+!urxvt*color7:     rgb:be/be/be
+!urxvt*color15:    rgb:ff/ff/ff
+
+!Theme Seventeen
+!*background: rgb:00/00/00
+!*foreground: rgb:e5/e5/e5
+!*color0:     rgb:00/00/00
+!*color1:     rgb:ff/00/00
+!*color2:     rgb:00/ff/00
+!*color3:     rgb:ff/ff/00
+!*color4:     rgb:00/00/ff
+!*color5:     rgb:ff/00/ff
+!*color6:     rgb:00/ff/ff
+!*color7:     rgb:ff/ff/ff
+!*color8:     rgb:ff/d3/9b
+!*color9:     rgb:ff/82/47
+!*color10:    rgb:ff/82/ab
+!*color11:    rgb:87/ce/fa
+!*color12:    rgb:ff/ff/ff
+!*color13:    rgb:ff/ff/ff
+!*color14:    rgb:ff/ff/ff
+!*color15:    rgb:ff/ff/ff
+
+! Gigamo's config
+! Black
+!*color0: #1e1e1e
+!*color8: #555753
+! Red
+!*color1: #CC0000
+!*color9: #EF2929
+! Green
+!*color2: #4E9A06
+!*color10: #8AE234
+! Yellow
+!*color3: #C4A000
+!*color11: #FCE94F
+! Blue
+!*color4: #3465A4
+!*color12: #729FCF
+! Purple
+!*color5: #75507B
+!*color13: #AD7FA8
+! Cyan
+!*color6: rgb:06/98/9A
+!*color14: #34E2E2
+! White
+!*color7: #9f9f9f
+!*color15: #e0e0e0
+
+
+
+
+!Daisuke_Aramaki
+urxvt*background:        #252525
+urxvt*foreground:        light grey
+
+!black
+!*color0:  #222222
+!*color8:  #554444
+!red
+!*color1: #EA6868
+!*color9: #FF7272
+!green
+!*color2: #ABCB8D
+!*color10: #AFD78A
+!yellow
+!*color3: #E8AE5B
+!*color11: #FFA75D
+!blue
+!*color4: #71C5F4
+!*color12: #67CDE9
+!magenta
+!*color5: #E2BAF1
+!*color13: #ECAEE9
+!cyan
+!*color6: #21F1EA
+!*color14: #36FFFC
+!white
+!*color7: #F1F1F1
+!*color15: #FFFFFF
+
+!Theme Twenty-Five
+*color0:  rgb:00/00/00
+*color1:  rgb:80/00/00
+*color2:  rgb:00/80/00
+*color3:  rgb:d0/d0/90
+*color4:  rgb:00/00/80
+*color5:  rgb:80/00/80
+*color6:  rgb:a6/ca/f0
+*color7:  rgb:d0/d0/d0
+*color8:  rgb:b0/b0/b0
+*color9:  rgb:f0/80/60
+*color10: rgb:60/f0/80
+*color11: rgb:e0/c0/60
+*color12: rgb:80/c0/e0
+*color13: rgb:f0/c0/f0
+*color14: rgb:c0/d8/f8
+*color15: rgb:e0/e0/e0
+
+!theme rezza
+!*foreground:     rgb:dd/dd/dd
+!*background:     rgb:22/22/22
+!black
+!*color0:         rgb:19/19/19
+!*color8:         rgb:25/25/25
+!red
+!*color1:         rgb:80/32/32
+!*color9:         rgb:98/2b/2b
+!green
+!*color2:         rgb:5b/76/2f
+!*color10:        rgb:89/b8/3f
+!brown/yellow
+!*color3:         rgb:aa/99/43
+!*color11:        rgb:ef/ef/60
+!blue
+!*color4:         rgb:32/4c/80
+!*color12:        rgb:2b/4f/98
+!magenta
+!*color5:         rgb:70/6c/9a
+!*color13:        rgb:82/6a/b1
+!cyan
+!*color6:         rgb:92/b1/9e
+!*color14:        rgb:a1/cd/cd
+!white
+!*color7:         rgb:ff/ff/ff
+!*color15:        rgb:dd/dd/dd
