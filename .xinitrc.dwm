@@ -1,0 +1,8 @@
+#exec /home/dziq/bin/dwm-status &
+#exec xsetroot -solid '#333333' &
+#eval `cat $HOME/.fehbg` &
+#exec autocutsel &
+exec urxvtd -q -f -o &
+#exec offlineimap &
+setxkbmap -option terminate:ctrl_alt_bksp &
+exec dwm 

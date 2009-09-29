@@ -1,0 +1,18 @@
+# Description: 
+# Maintainer: Marcin Karpezo, sirmacik at gmail dot com
+# URL: 
+# Depends on: 
+
+name=
+version=
+release=
+source=()
+
+build(){
+    cd $name-$version
+    ./configure --prefix=/usr \
+                --mandir=/usr/man \
+                --disable-nls
+    make
+    make DESTDIR=$PKG install
+}

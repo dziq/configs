@@ -1,0 +1,28 @@
+defutf8 on
+startup_message off
+activity "%c activity -> %n%f %t"
+autodetach on
+altscreen on
+bell "%c bell -> %n%f %t^G"
+defflow auto
+defscrollback 10000
+
+# F8 to turn the status bar off
+bindkey -k k8 hardstatus alwayslastline
+# F9 to turn the status bar on 
+bindkey -k k9 hardstatus alwaysignore
+# F1 and F2 to move one screen forward or backward
+bindkey -k k1 prev
+bindkey -k k2 next
+vbell_msg "[[[ ding ]]]"
+vbell off
+nethack on
+
+hardstatus alwayslastline
+hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{=kw}%?%-Lw%?%{r}(%{W}%n*%f %t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %Y-%m-%d %{W}%c %{g}]'
+#screen -t rtorrent         1 rtorrent
+#screen -t ekg2      1 ekg2
+#screen -t mail      2 mutt
+#screen -t music     3 ncmpcpp
+screen -t terminal      1 xterm
+
