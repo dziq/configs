@@ -7,11 +7,11 @@ Xft.dpi:100
 !Xft.hintstyle:  hintfull
 !Xft.rgba:       rgb
 !!!Font
-URxvt.font:     -misc-fixed-medium-r-*-*-10-*-*-*-*-*-iso10646-1
-URxvt.boldFont:  -misc-fixed-medium-r-*-*-10-*-*-*-*-*-iso10646-1
+!URxvt.font:     -misc-fixed-medium-r-*-*-10-*-*-*-*-*-iso10646-1
+!URxvt.boldFont:  -misc-fixed-medium-r-*-*-10-*-*-*-*-*-iso10646-1
 
-!URxvt.font: xft:Lucida Console:pixelsize=11
-!URxvt.boldFont: xft:Lucida Console:pixelsize=11
+URxvt.font: xft:Lucida Console:pixelsize=11
+URxvt.boldFont: xft:Lucida Console:pixelsize=11
 !!!Settings
 !URxvt*background:grey10
 URxvt*cursorColor:#ffffff
@@ -20,8 +20,8 @@ URxvt*title: Terminal
 URxvt.geometry: 100x35+30+100
 URxvt.scrollBar: false
 URxvt.xftAntialias: true
-!URxvt*depth:                32
-!URxvt*background:        rgba:0000/0000/0000/cccc
+URxvt*depth:                32
+URxvt*background:        rgba:0000/0000/0000/cccc
 URxvt*perl-ext-common: selection-autotransform,matcher
 URxvt*urlLauncher: firefox
 URxvt*matcher.button: 1
@@ -376,7 +376,7 @@ xterm*geometry:                 100x30
 !urxvt*background: rgb:10/10/10
 !urxvt*foreground: rgb:d3/d3/d3
 !*color0:     rgb:10/10/10
-*color1:     rgb:cd/5c/5c
+!*color1:     rgb:cd/5c/5c
 !*color2:     rgb:2e/8b/57
 !*color3:     rgb:f0/e6/8c
 !*color4:     rgb:51/60/83
@@ -384,7 +384,7 @@ xterm*geometry:                 100x30
 !*color6:     rgb:46/82/b4
 !*color7:     rgb:d3/d3/d3
 !*color8:     rgb:4d/4d/4d
-*color9:     rgb:ff/6a/6a
+!*color9:     rgb:ff/6a/6a
 !*color10:    rgb:8f/bc/8f
 !*color11:    rgb:ff/fa/cd
 !*color12:    rgb:a2/bb/ff
@@ -394,34 +394,116 @@ xterm*geometry:                 100x30
 
 !!New
 urxvt.cursorColor: #DCDCCC
-*foreground: #DDEEDD
-*background: #1C1C1C
+!*foreground: #DDEEDD
+!*background: #1C1C1C
 
 !black
-*color0: #1C1C1C
-*color8: #4d4d4d
+!*color0: #1C1C1C
+!*color8: #4d4d4d
 !red
 !*color1: #D81860
 !*color9: #F00060
 !green
-*color2: #B7CE42
-*color10: #BDE077
+!*color2: #B7CE42
+!*color10: #BDE077
 !yellow
-*color3: #FEA63C
-*color11: #FFE863
+!*color3: #FEA63C
+!*color11: #FFE863
 !blue
-*color4: #66AABB
-*color12: #AACCBB
+!*color4: #66AABB
+!*color12: #AACCBB
 !magenta
-*color5: #9E6FFE
-*color13: #9E6FFE
+!*color5: #9E6FFE
+!*color13: #9E6FFE
 !cyan
-*color6: #5E7175
-*color14: #A3BABF
+!*color6: #5E7175
+!*color14: #A3BABF
 !white
-*color7: #DDEEDD
-*color15: #6C887A
+!*color7: #DDEEDD
+!*color15: #6C887A
 !magenta
 !*color5: #B7416E
 !*color13: #BB4466
+!
+!
+!black
 
+!urxvt*foreground: #DDEEDD
+!*background: #1C1C1C
+
+!*color0: #1C1C1C
+!*color8: #4d4d4d
+!!red
+!*color1: #D81860
+!*color9: #F00060
+!!green
+!*color2: #B7CE42
+!*color10: #BDE077
+!!yellow
+!*color3: #FEA63C
+!*color11: #FFE863
+!!blue
+!*color4: #66AABB
+!*color12: #AACCBB
+!!cyan
+!*color6: #5E7175
+!*color14: #A3BABF
+!!white
+!*color7: #DDEEDD
+!*color15: #6C887A
+!!magenta
+!*color5: #B7416E
+!*color13: #BB4466
+
+!## Shades of gray ##
+!*background: #222c2e
+!*foreground: #dee2e3
+!!*cursorColor: #545f65
+!# black 
+!*color0:      #000000
+!*color8:      #666666
+!# red
+!*color1:      #545f65
+!*color9:      #dae3e8
+!# green
+!*color2:      #6d787c
+!*color10:     #99a2a7
+!# yellow
+!*color3:      #dee2e3
+!*color11:     #9ea8aa
+!*color11: #efef60
+!# blue
+!*color4:      #9ea8aa
+!*color12:     #dee2e3
+!# magenta
+!*color5:      #97a1a3
+!*color13:     #c2c7ca
+!# cyan
+!*color6:      #97a1a3
+!*color14:     #c2c7ca
+!# white
+!*color7:      #dee2e3
+!*color15:     #efefef
+
+
+
+!Theme Thirteen
+!urxvt*background: rgb:00/00/00
+urxvt*foreground: rgb:aa/aa/aa
+*color0:     rgb:00/00/00
+*color1:     rgb:9e/18/28
+*color2:     rgb:ae/ce/92
+*color3:     rgb:96/8a/38
+*color4:     rgb:41/41/71
+*color5:     rgb:96/3c/59
+*color6:     rgb:7f/9f/7f
+*color7:     rgb:be/be/be 
+*color8:     rgb:66/66/66
+color9:     rgb:cf/61/71
+*color10:    rgb:af/c5/af
+*color11:    rgb:f0/df/af
+*color12:    rgb:8e/9f/bc
+*color13:    rgb:dc/a3/a3
+*color14:    rgb:95/c1/c5
+*color15:    rgb:ff/ff/ff
+!
