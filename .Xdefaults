@@ -1,4 +1,4 @@
-Xcursor.theme: Vanilla-DMZ
+Xcursor.theme: Human
 !Xcursor.size:  16 
 !Xft.dpi:100
 !Xcursor.theme_core:     true
@@ -7,10 +7,10 @@ Xft.hinting:    1
 Xft.hintstyle:  hintslight
 Xft.rgba:       rgb
 !!!Font
-!URxvt.font:     -misc-fixed-medium-r-*-*-10-*-*-*-*-*-iso10646-1
+!URxvt.font:     -*-terminus-*-*-*-*-12-*-*-*-*-*-iso10646-1
 !URxvt.boldFont:  -misc-fixed-medium-r-*-*-10-*-*-*-*-*-iso10646-1
 
-URxvt.font: xft:Lucida Console:pixelsize=13
+URxvt.font: xft:terminus-10
 !URxvt.boldFont: xft:Lucida Console:pixelsize=12
 !!!Settings
 !URxvt*background:grey10
@@ -28,7 +28,7 @@ URxvt*matcher.button: 1
 Urxvt.inheritPixmap: true
 !URxvt.transparent: true
 !URxvt.tintColor:white
-!URxvt.shading: 30
+!URxvt.shading: 15 
 URxvt.jumpScroll: True
 URxvt.scrollstyle: plain
 URxvt.loginShell: False
@@ -64,36 +64,36 @@ xterm*metaSendsEscape:          true
 !
 xterm*urgentOnBell: true
 xterm*boldMode:                 false
-xterm*font:                                 -misc-fixed-medium-r-*-*-10-*-*-*-*-*-iso10646-1
-xterm*boldFont:                     -misc-fixed-medium-r-*-*-10-*-*-*-*-*-iso10646-1
+!xterm*font:                                 -misc-fixed-medium-r-*-*-10-*-*-*-*-*-iso10646-1
+!xterm*boldFont:                     -misc-fixed-medium-r-*-*-10-*-*-*-*-*-iso10646-1
 !xterm*font:                    -*-lucida console-*-*-*-*-10-*-*-*-*-*-iso10646-1
 !xterm*boldFont:                -*-lucida console-*-*-*-*-10-*-*-*-*-*-iso10646-1
-!xterm*faceName:     Lucida Console
-!xterm*faceSize:     8
+xterm*faceName:     Lucida Console
+xterm*faceSize:     10
 !
 xterm*geometry:                 100x30
 !
 !!!-------------------------------------
 !
 !! Zenburn
-!urxvt*background:  #3f3f3f
-!urxvt*foreground:  #dcdccc
-!urxvt*color0:      #1E2320
-!urxvt*color1:      #705050
-!urxvt*color2:      #60b48a
-!urxvt*color3:      #dfaf8f
-!urxvt*color4:      #506070
-!urxvt*color5:      #dc8cc3
-!urxvt*color6:      #8cd0d3
-!urxvt*color7:      #dcdccc
-!urxvt*color8:      #709080
-!urxvt*color9:      #dca3a3
-!urxvt*color10:     #c3bf9f
-!urxvt*color11:     #f0dfaf
-!urxvt*color12:     #94bff3
-!urxvt*color13:     #ec93d3
-!urxvt*color14:     #93e0e3
-!urxvt*color15:     #ffffff
+xterm*background:  #3f3f3f
+xterm*foreground:  #dcdccc
+xterm*color0:      #1E2320
+xterm*color1:      #705050
+xterm*color2:      #60b48a
+xterm*color3:      #dfaf8f
+xterm*color4:      #506070
+xterm*color5:      #dc8cc3
+xterm*color6:      #8cd0d3
+xterm*color7:      #dcdccc
+xterm*color8:      #709080
+xterm*color9:      #dca3a3
+xterm*color10:     #c3bf9f
+xterm*color11:     #f0dfaf
+xterm*color12:     #94bff3
+xterm*color13:     #ec93d3
+xterm*color14:     #93e0e3
+xterm*color15:     #ffffff
 !!! end of options (xterm)
 
 
@@ -250,22 +250,22 @@ urxvt*foreground:        light grey
 !Theme Two
 !urxvt*background: rgb:00/00/00
 !urxvt*foreground: rgb:7f/7f/7f
-*color0:     rgb:00/00/00
-*color1:     rgb:9e/18/28
-*color2:     rgb:ae/ce/92
-*color3:     rgb:96/8a/38
-*color4:     rgb:41/41/71
-*color5:     rgb:96/3c/59
-*color6:     rgb:41/81/79
-*color7:     rgb:be/be/be
-*color8:     rgb:66/66/66
-*color9:     rgb:cf/61/71
-*color10:    rgb:c5/f7/79
-*color11:    rgb:ff/f7/96
-*color12:    rgb:41/86/be
-*color13:    rgb:cf/9e/be
-*color14:    rgb:71/be/be
-*color15:    rgb:ff/ff/ff
+!*color0:     rgb:00/00/00
+!*color1:     rgb:9e/18/28
+!*color2:     rgb:ae/ce/92
+!*color3:     rgb:96/8a/38
+!*color4:     rgb:41/41/71
+!*color5:     rgb:96/3c/59
+!*color6:     rgb:41/81/79
+!*color7:     rgb:be/be/be
+!*color8:     rgb:66/66/66
+!*color9:     rgb:cf/61/71
+!*color10:    rgb:c5/f7/79
+!*color11:    rgb:ff/f7/96
+!*color12:    rgb:41/86/be
+!*color13:    rgb:cf/9e/be
+!*color14:    rgb:71/be/be
+!*color15:    rgb:ff/ff/ff
 
 !Theme Eleven
 !urxvt*background: rgb:33/33/33
@@ -506,4 +506,30 @@ urxvt*foreground:        light grey
 !*color13:    rgb:dc/a3/a3
 !*color14:    rgb:95/c1/c5
 !*color15:    rgb:ff/ff/ff
-!
+
+
+
+!black
+*color0: #000000
+*color8: #505050
+!!red
+*color1: #D81860
+*color9: #F00060
+!!green
+*color2: #B7CE42
+*color10: #BDE077
+!!yellow
+*color3: #ffc62c
+*color11: #ffef63
+!!blue
+*color4: #1b669f
+*color12: #65a7da
+!!magenta
+*color5: #a0c2de
+*color13: #c9dee8
+!!cyan
+*color6: #4db9d7
+*color14: #77d7e7
+!!white
+*color7: #b0b0b0
+*color15: #e0e0e0
