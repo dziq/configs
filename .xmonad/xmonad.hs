@@ -1,4 +1,3 @@
-------------------- imports --------------------
 
 --necessary
 import XMonad
@@ -41,6 +40,8 @@ import XMonad.Layout.Spiral
 import XMonad.Layout.Tabbed
 import XMonad.Layout.Grid
 import XMonad.Layout.SimplestFloat
+import XMonad.Layout.IM
+import XMonad.Layout.Reflect
 import Data.Ratio((%))
 
 
@@ -80,12 +81,19 @@ fadeLogHook = fadeInactiveLogHook fadeAmount
 -------------------- layouthooks --------------------
 
 layoutHook' = customLayout
-customLayout = onWorkspace "web" simpleTabbed $ avoidStrutsOn [U] (spiral (6/7) ||| spaced ||| Grid  ||| smartBorders tiled ||| smartBorders (Mirror tiled) ||| noBorders Full)
+--customLayout = onWorkspace "web" simpleTabbed $ avoidStrutsOn [U] (spiral (6/7) ||| spaced |||  float ||| Grid  ||| smartBorders tiled ||| smartBorders (Mirror tiled) ||| noBorders Full)
+customLayout = onWorkspace "irc" (avoidStruts $ (Mirror tiled) ) $ onWorkspace "term" termL $ onWorkspace "web" webL $ onWorkspace "graph" graphL $ onWorkspace "mail" (avoidStruts $ (Mirror mailL) ) $ defLayout
 	where
+	 defLayout = avoidStruts $ (spiral (6/7) ||| spaced |||  float     ||| Grid  ||| smartBorders tiled ||| smartBorders (Mirror tiled) ||| noBorders Full)
 	 spaced = named "Spacing" $ spacing 6 $ Tall 1 (3/100) (1/2)
-	 tiled  = named "Tiled" $ ResizableTall 1 (2/100) (1/2) []
---	float   = simplestFloat
-
+	 tiled = named "Tiled" $ ResizableTall 1 (2/100) (1/2) []
+         float = simplestFloat
+	 webL = avoidStruts $ simpleTabbed 
+	 graphL =  avoidStruts $ smartBorders $ withIM (0.11) (Role "gimp-toolbox") $ reflectHoriz $ withIM (0.15) (Role "gimp-dock") Full
+	 mailL = named "Mail" $ Tall 1 (2/100) (1/2)
+--	 mailL = named "Mail" $ avoidStruts $ smartBorders (Mirror tiled) 
+	 termL = avoidStruts $ spacing 6 $ Tall 1 (3/100) (1/2)
+--	 tiled1  = Tall 1 (3/100) (1/2)
 -------------------- menuhook --------------------
 
 getProp :: Atom -> Window -> X (Maybe [CLong])
@@ -190,7 +198,7 @@ keys' conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
 --prompt
 prompt' = defaultXPConfig {
-      font              = "xft:terminus-9"
+      font              = "xft:terminus-7"
     , bgColor           = "#151515"
     , defaultText       = ""
     , fgColor           = "#b3b3b3"
@@ -203,5 +211,6 @@ prompt' = defaultXPConfig {
 --    , height            = (read dzen_size :: Dimension)
     , historySize       = 128
     }
+
 
 
