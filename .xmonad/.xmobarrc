@@ -1,19 +1,20 @@
-Config { font = "xft:terminus-10"
+Config { font = "xft:terminus-7"
        , bgColor = "#151515"
        , fgColor = "#b3b3b3"
        , position = Top
        , lowerOnStart = True
-       , commands = [ Run Date "%A, %d %b %Y <fc=#87b0ff>%H:%M:%S</fc>" "date" 10
-		    , Run Network "wlan0" ["-L","0","-H","32","--normal","green","--high","red"] 10
-		    , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
-                    , Run Memory ["-t","Mem: <usedratio>%"] 10
-                    , Run Swap [] 10
-                    , Run Com "skb" ["-1"] "kb" 10
-                    , Run StdinReader
-		    , Run Com "mpc | grep -" [] "mpd" 10
-		    ,  Run Weather "EPWA" ["-t","<station>: <tempC>C","-L","17","-H","25","--normal","green","--high","red","--low","lightblue"] 36000
+       , commands = [ Run Date "%D <fc=#87b0ff>%H:%M</fc>" "date" 10
+	, Run Network "wlan0" ["-L","0","-H","32","--normal","green","--high","red"] 10
+	, Run Network "eth0" ["-L","0","-H","32","--normal","green","--high","red"] 10
+	, Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+        , Run Memory ["-t","Mem: <usedratio>%"] 10
+        , Run Swap [] 10
+        , Run Com "skb" ["-1"] "kb" 10
+        , Run StdinReader
+	, Run Com "mpc | grep -" [] "mpd" 10
+	, Run Weather "EPWA" ["-t","<station>: <tempC>C","-L","17","-H","25","--normal","green","--high","red","--low","lightblue"] 36000
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %cpu% | %memory% * %swap% | %wlan0% | %date% "
+       , template = "%StdinReader% }{ %cpu% | %memory% | %eth0% | %wlan0% | %date% "
        } 
