@@ -1,0 +1,16 @@
+schedule = watch_directory,5,5,load_start=/home/dziq/.rtorrent/torrents/*.torrent
+directory=/home/dziq/downloads
+session = /home/dziq/.rtorrent/session/
+upload_rate=4
+download_rate=0
+max_uploads=10
+min_peers=10
+max_peers=300
+use_udp_trackers=yes
+port_range = 49164-49164
+#scgi_local = 127.0.0.1:5000
+# _bg _fg colors, -1 for terminal default, 0~7 for colors
+done_fg_color = 2
+done_bg_color = -1
+active_fg_color = 1
+active_bg_color = -1
