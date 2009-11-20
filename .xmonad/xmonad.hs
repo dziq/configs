@@ -50,7 +50,7 @@ import Data.Ratio((%))
 main = do 
 	h <- spawnPipe "xmobar ~/.xmobarrc"
 	xmonad $ withUrgencyHook NoUrgencyHook $ defaultConfig
-		{ workspaces = ["term", "web", "irc", "mail", "code", "graph", "oo", "media", "pdf"] 
+		{ workspaces = ["term", "web", "irc", "mail"] ++ map show ["code", "graph", "oo", "media", "pdf"] 
 --		{ workspaces = ["irc", "web", "media"] ++ map show [4..7] ++ ["network", "torrent"]
 		, modMask = mod4Mask
 		, startupHook = setWMName "LG3D"
@@ -73,7 +73,7 @@ customPP = defaultPP { ppCurrent = xmobarColor "#87b0ff" ""
 		     , ppTitle = shorten 75
 		     , ppSep = "<fc=#87b0ff> | </fc>"
 		     , ppUrgent = xmobarColor "#FF0000" "" . wrap "*" "*"
-	             , ppHiddenNoWindows = xmobarColor "#554444" ""
+	             --, ppHiddenNoWindows = xmobarColor "#554444" ""
                      }
 fadeLogHook :: X ()
 fadeLogHook = fadeInactiveLogHook fadeAmount
@@ -82,7 +82,7 @@ fadeLogHook = fadeInactiveLogHook fadeAmount
 
 layoutHook' = customLayout
 --customLayout = onWorkspace "web" simpleTabbed $ avoidStrutsOn [U] (spiral (6/7) ||| spaced |||  float ||| Grid  ||| smartBorders tiled ||| smartBorders (Mirror tiled) ||| noBorders Full)
-customLayout = onWorkspace "irc" (avoidStruts $ (Mirror tiled) ) $ onWorkspace "term" termL $ onWorkspace "web" webL $ onWorkspace "graph" graphL $ onWorkspace "mail" (avoidStruts $ (Mirror mailL) ) $ defLayout
+customLayout = onWorkspace "irc" (avoidStruts $ (Mirror tiled) ) $ onWorkspace "term" termL $ onWorkspace "web" webL $ onWorkspace "graph" graphL $ onWorkspace "mail" (avoidStruts $  mailL ) $ defLayout
 	where
 	 defLayout = avoidStruts $ (spiral (6/7) ||| spaced |||  float     ||| Grid  ||| smartBorders tiled ||| smartBorders (Mirror tiled) ||| noBorders Full)
 	 spaced = named "Spacing" $ spacing 6 $ Tall 1 (3/100) (1/2)
@@ -90,7 +90,7 @@ customLayout = onWorkspace "irc" (avoidStruts $ (Mirror tiled) ) $ onWorkspace "
          float = simplestFloat
 	 webL = avoidStruts $ simpleTabbed 
 	 graphL =  avoidStruts $ smartBorders $ withIM (0.11) (Role "gimp-toolbox") $ reflectHoriz $ withIM (0.15) (Role "gimp-dock") Full
-	 mailL = named "Mail" $ Tall 1 (2/100) (1/2)
+	 mailL = named "Mail" $ Tall 1 (3/100) (3/4)
 --	 mailL = named "Mail" $ avoidStruts $ smartBorders (Mirror tiled) 
 	 termL = avoidStruts $ spacing 6 $ Tall 1 (3/100) (1/2)
 --	 tiled1  = Tall 1 (3/100) (1/2)
@@ -198,7 +198,7 @@ keys' conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
 --prompt
 prompt' = defaultXPConfig {
-      font              = "xft:terminus-7"
+      font              = "xft:terminus-8"
     , bgColor           = "#151515"
     , defaultText       = ""
     , fgColor           = "#b3b3b3"
