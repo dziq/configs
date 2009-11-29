@@ -1,3 +1,11 @@
+encoding UTF-8
+
+#defkanji utf-8
+#encoding iso-8859-2
+#defencoding utf-8
+term screen-256color
+terminfo rxvt-unicode 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+#setenv LANG pl_PL.UTF-8
 defutf8 on
 startup_message off
 activity "%c activity -> %n%f %t"
@@ -17,12 +25,18 @@ bindkey -k k2 next
 vbell_msg "[[[ ding ]]]"
 vbell off
 nethack on
+backtick 1 60 60 /home/dziq/bin/screen_agenda
+#hardstatus alwayslastline "%{.kK}[%1`@%H]"
+hardstatus alwayslastline '%{gk}[ %{G}%H %{g}][%= %{wk}%?%-Lw%?%{=b kR}(%{W}%n*%f %t%?(%u)%?%{=b kR})%{= kw}%?%+Lw%?%?%= %{g}][%{Y}%l%{g}]%{=b C}[ %d-%m-%Y %c ]%{W} [%1`]'
 
-hardstatus alwayslastline
-hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{=kw}%?%-Lw%?%{r}(%{W}%n*%f %t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %Y-%m-%d %{W}%c %{g}]'
-#screen -t rtorrent         1 rtorrent
+
+#hardstatus alwayslastline
+#hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{=kw}%?%-Lw%?%{r}(%{W}%n*%f %t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %Y-%m-%d %{W}%c %{g}]'
+#screen -t zsh 1 zsh
+screen -t rtorrent   1 rtorrent
 #screen -t ekg2      1 ekg2
-#screen -t mail      2 mutt
-#screen -t music     3 ncmpcpp
-screen -t terminal      1 xterm
+#screen -t mail      1 mutt
+#screen -t imap	2 offlineimap
+#screen -t music     4 ncmpcpp
+
 
