@@ -1,0 +1,21 @@
+#-------------------------------------------
+# dzen2 output
+
+background no
+no_buffers yes
+out_to_console yes
+update_interval 2.5
+uppercase no
+use_spacer  none
+total_run_times 0
+
+cpu_avg_samples 5
+net_avg_samples 5
+
+# MPD host/port
+mpd_host localhost
+mpd_port 6600
+music_player_interval 5
+
+TEXT
+[^i(/home/dziq/.dzen2/icons/pacman.xbm) ${execi 1800 perl /home/dziq/scripts/conky-updates.pl}] [^i(/home/dziq/.dzen2/icons/mem.xbm) $mem/$memmax - $memperc%] [ ^i(/home/dziq/.dzen2/icons/cpu.xbm) ${cpu}% ] [^i(/home/dziq/.dzen2/icons/ac_01.xbm) ${acpiacadapter} :: ^i(/home/dziq/.dzen2/icons/bat_full_01.xbm) ${battery_percent BAT1}% ] [^i(/home/dziq/.dzen2/icons/wifi_01.xbm) ${wireless_essid wlan0} ${wireless_link_qual_perc wlan0} ^i(/home/dziq/.dzen2/icons/net_down_01.xbm) ${downspeed wlan0} Kb/s ^i(/home/dziq/.dzen2/icons/net_up_01.xbm) ${upspeed wlan0} Kb/s ] [^i(/home/dziq/.dzen2/icons/net_wired.xbm) ^i(/home/dziq/.dzen2/icons/net_down_01.xbm) ${downspeed eth0}KB/s ^i(/home/dziq/.dzen2/icons/net_up_01.xbm) ${upspeed eth0}KB/s] [^i(/home/dziq/.dzen2/icons/play.xbm) ${mpd_smart} :: $mpd_elapsed/$mpd_length ]

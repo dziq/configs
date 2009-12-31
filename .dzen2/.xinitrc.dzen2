@@ -1,0 +1,14 @@
+xrdb -load /home/dziq/.Xdefaults &
+#(sleep 2 && conky -c ~/.dzen2/conky-top | dzen2 -bg '#222222' -fg '#cccccc' -sa c -fn '-*-fixed-*-*-*-*-10-*-*-*-*-*-iso10646-1' -ta r -w 800 -x 640) &
+#(sleep 2 &&  conky -c ~/.dzen2/conky-bottom | dzen2 -bg '#222222' -fg '#cccccc' -sa c -fn '-*-fixed-*-*-*-*-10-*-*-*-*-*-iso10646-1' -ta r -w 200 -x 1080) &
+(sleep 2 && conky -c ~/.dzen2/conky-top | dzen2 -bg '#222222' -fg '#cccccc' -sa c -fn '-*-fixed-*-*-*-*-9-*-*-*-*-*-iso10646-1' -ta r -w 170 -x 1110) &
+(sleep 2 && conky -c ~/.dzen2/conky-bottom | dzen2 -bg '#222222' -fg '#cccccc' -sa c -fn '-*-fixed-*-*-*-*-9-*-*-*-*-*-iso10646-1' -ta l -w 1280 -y 788) &
+#exec nm-applet --sm-disable &
+#exec xsetroot -solid grey20 &
+eval `cat $HOME/.fehbg` &
+#exec feh --bg-scale ~/Docs/wallpapers/3d_colorfull.jpe &
+#trayer --edge bottom --align right --widthtype pixel --width 200 --transparent true --alpha 255 --heighttype pixel --height 16 --SetDockType true &
+exec urxvtd &
+exec wicd-client &
+#exec setxkbmap pl &
+exec dwm
