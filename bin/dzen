@@ -1,0 +1,110 @@
+#!/bin/bash
+
+foreground="#afd700"
+background="#151515"
+font=""-*-fixed-*-*-*-*-10-*-*-*-*-*-iso10646-1"
+interval=1
+
+## select player: mocp, mpd, amarok2
+player_type="mpd"
+
+color1="#BBFF44"
+
+MPD_HOST="localhost"
+MPD_PORT="6600"
+
+## some additional envy's
+
+## functions
+function clock {
+      clock=`date +"%H:%M"`
+
+}
+
+function media_player {
+    
+    function mocp_player {
+        state=`mocp -i | awk '/State/ {print $2}'`
+        played_now="`mocp -i | sed -ne 's/^Artist: \(.*\)$/\1/p'` - `mocp -i | sed -ne 's/^SongTitle: \(.*\)$/\1/p'`"
+        if [ "${state}" = "PLAY" ]; then
+            media_player="^fg($color1)[ PLAYING ]^fg() $played_now"
+        elif [ "${state}" = "PAUSE" ]; then
+            media_player="^fg($color1)[ PAUSED ]^fg() $played_now"
+        else
+            media_player="^fg($color1)[ STOPPED ]^fg() nothing is played now"
+        fi
+    }
+    
+    function mpd_player {
+        state=`mpc | awk '/(playing|paused)/ { print $1 }' | sed -e 's/\[//' -e 's/\]//'`
+        played_now=`mpc | line`
+        
+        if [ "${state}" = "playing" ]; then
+            media_player="^fg($color1)^i(/home/dziq/.icons/dzen/mpd/play.xbm)^fg() $played_now"
+        elif [ "${state}" = "paused" ]; then
+            media_player="^fg($color1)^i(/home/dziq/.icons/dzen/mpd/pause.xbm)^fg() $played_now"
+        else
+            media_player="^fg($color1)^i(/home/dziq/.icons/dzen/mpd/stop.xbm)^fg() nothing is played now"
+        fi
+    }
+  
+    function amarok2_player {
+        state=`qdbus org.kde.amarok /Player GetMetadat`
+        played_now=`qdbus org.kde.amarok /Player GetMetadata | awk '/artist|title/' | sed -e 's/artist\:\ //' -e 's/title\:\ / \-\ /' | awk '{printf("%s", $0) }'`
+    
+        media_player="^fg($color1)[ PLAYING ]^fg() $played_now"
+    }
+    
+    ${player_type}_player
+    
+}
+
+function network {
+    
+    rx1o=`cat /sys/class/net/eth0/statistics/rx_bytes`
+    tx1o=`cat /sys/class/net/eth0/statistics/tx_bytes`
+    
+    sleep 1
+    
+    rx1n=`cat /sys/class/net/eth0/statistics/rx_bytes`
+    tx1n=`cat /sys/class/net/eth0/statistics/tx_bytes`
+    
+    download="^fg($color1)^i(/home/dziq/.icons/dzen/addons/net_down.xbm)^fg() $(( $(( $rx1n - $rx1o )) / 1024 / $interval ))"
+    upload="^fg($color1)^i(/home/dziq/.icons/dzen/addons/net_up.xbm)^fg() $(( $(( $tx1n  - $tx1o )) / 1024 / $interval ))"
+    
+}
+
+function dzen_sensors {
+    cpu_temporary=`cat /sys/class/hwmon/hwmon0/device/temp1_input | cut -c -2`
+    
+    if [ "$cpu_temporary" -ge "55" ]; then
+        cpu_temp="CPU^fg(#FF4444)^i(/home/dziq/.icons/dzen/addons/temperature.xbm)^fg() ${cpu_temporary}°C"
+    elif [ "$cpu_temporary" -ge "45" ]; then
+        cpu_temp="CPU^fg(#FFFF44)^i(/home/dziq/.icons/dzen/addons/temperature.xbm)^fg() ${cpu_temporary}°C"
+    else
+        cpu_temp="CPU^fg($color1)^i(/home/dziq/.icons/dzen/addons/temperature.xbm)^fg() ${cpu_temporary}°C"
+    fi
+
+}
+
+
+function battery {
+  bat="$(echo `hal-device | grep charge_level.percentage | awk '{print $3}'`%)"
+}
+
+## core script
+
+while true; do
+## exec modules
+    network
+    media_player
+    clock
+    dzen_sensors
+    battery
+    
+    echo -e "^p(+3)$media_player | $cpu_temp | ${download}kb/s ${upload}kb/s | $clock ^p()"
+    
+    ## uncomment if you don't use network func
+    #sleep $interval
+done | dzen2 -x 305 -h 14 -ta right -fn "$font" -fg "$foreground" -bg "$background"
+

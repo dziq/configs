@@ -1,0 +1,30 @@
+#!/bin/bash
+# Klient MPD
+shownotify() {
+  notify-send "${sinf[1]}" "${sinf[0]}"
+}
+
+xselcopy() {
+  echo "${sinf[0]}"|xsel
+}
+
+for i in $@; do
+  if [ "$i" = "-s" ]; then
+    shift
+    opts[0]="shownotify"
+  elif [ "$i" = "-c" ]; then
+    shift
+    opts[1]="xselcopy"
+  fi
+done
+
+eval $(echo "sinf=(\\"; mpc $@|sed '1,2!d; s/\(^.*$\)/"\1"/g; s/$/ \\/g'; echo ")")
+
+for i in ${opts[*]}; do $i; done
+
+# Sposób użycia:
+#   nazwa_tego_skryptu [-s] [-c] [mpc_opts]
+#
+# Opcje:
+#   -c   Kopiuje tytuł do schowka
+#   -s   Wyświetla chmurkę z nazwą piosenki i postępem

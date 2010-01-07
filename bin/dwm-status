@@ -1,0 +1,12 @@
+#!/bin/sh
+while (true); do
+TEMP=$(cat /proc/acpi/thermal_zone/THRM/temperature | awk '{print $2"°C"}')
+FREQ=$(cpufreq-info | awk '/current CPU frequency/ {printf($5"MHz ")}')
+DATE=$(date +%d/%m/%Y\ -\ %H:%M)
+root=$(df -h | awk '/sda2/ {print $4"/"$2}')
+home=$(df -h | awk '/sda3/ {print $4"/"$2}')
+BAT=$(echo `hal-device | grep charge_level.percentage | awk '{print $3}'`%)
+INFO=$(echo -n "CPUFreq: $FREQ :: Storage: $root :: $home :: Temperature $TEMP :: Bat $BAT :: $DATE")
+sleep 1
+xsetroot -name "$INFO"
+done

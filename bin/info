@@ -1,0 +1,4 @@
+#!/bin/zsh
+~/bin/info.pl
+sleep 2
+~/bin/inxi -F

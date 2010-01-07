@@ -1,0 +1,6 @@
+#!/bin/sh
+
+amixer -q set Master 1dB-
+
+notify-send -t 0 "`amixer get Master | awk 'NR==5 {print "vol " $4}'`"
+
