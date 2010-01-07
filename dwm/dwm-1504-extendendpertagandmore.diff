@@ -1,0 +1,322 @@
+diff -up -x '.*' ../../dwm-upstream/config.def.h ./config.def.h
+--- ../../dwm-upstream/config.def.h	2009-09-26 21:00:52.000000000 +0200
++++ ./config.def.h	2009-11-09 19:59:16.000000000 +0100
+@@ -24,7 +24,10 @@ static const Rule rules[] = {
+ 
+ /* layout(s) */
+ static const float mfact      = 0.55; /* factor of master area size [0.05..0.95] */
++static const float tagmwfact[] = { 0.6, 0.5, 0.7, 0.5, 0.7, 0.5, 0.5, 0.5, 0.5 };
+ static const Bool resizehints = True; /* True means respect size hints in tiled resizals */
++static const int taglayout[] = { 0, 2, 0, 1, 0, 0, 0, 0, 0 };
++static const int tagattachmode[] = { AttNormal, AttAsLast, AttNormal, AttNormal, AttNormal, AttNormal, AttNormal, AttNormal, AttNormal };
+ 
+ static const Layout layouts[] = {
+ 	/* symbol     arrange function */
+@@ -71,6 +74,11 @@ static Key keys[] = {
+ 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
+ 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
+ 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
++	{ MODKEY|ShiftMask,		XK_n,	   setattachmode,  {.i =AttNormal} },
++	{ MODKEY|ShiftMask,		XK_b,	   setattachmode,  {.i =AttAbove} },
++	{ MODKEY|ShiftMask,		XK_s,	   setattachmode,  {.i =AttAside} },
++	{ MODKEY|ShiftMask,		XK_l,	   setattachmode,  {.i =AttAsLast} },
++	{ MODKEY,        		XK_Tab,	   focustoggle,    {0} },
+ 	TAGKEYS(                        XK_1,                      0)
+ 	TAGKEYS(                        XK_2,                      1)
+ 	TAGKEYS(                        XK_3,                      2)
+diff -up -x '.*' ../../dwm-upstream/dwm.c ./dwm.c
+--- ../../dwm-upstream/dwm.c	2009-11-01 22:09:30.000000000 +0100
++++ ./dwm.c	2009-11-09 20:43:46.000000000 +0100
+@@ -54,6 +54,9 @@
+ #define TAGMASK                 ((1 << LENGTH(tags)) - 1)
+ #define TEXTW(X)                (textnw(X, strlen(X)) + dc.font.height)
+ 
++/* BUG: This is DAMN stupid! */
++#define TAGNUM			9
++
+ /* enums */
+ enum { CurNormal, CurResize, CurMove, CurLast };        /* cursor */
+ enum { ColBorder, ColFG, ColBG, ColLast };              /* color */
+@@ -61,6 +64,7 @@ enum { NetSupported, NetWMName, NetLast 
+ enum { WMProtocols, WMDelete, WMState, WMLast };        /* default atoms */
+ enum { ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
+        ClkClientWin, ClkRootWin, ClkLast };             /* clicks */
++enum { AttNormal, AttAbove, AttAside, AttAsLast };        /* Attach modes */
+ 
+ typedef union {
+ 	int i;
+@@ -123,6 +127,8 @@ typedef struct {
+ struct Monitor {
+ 	char ltsymbol[16];
+ 	float mfact;
++	double mfacts[TAGNUM + 1];
++	int attachmode;
+ 	int num;
+ 	int by;               /* bar geometry */
+ 	int mx, my, mw, mh;   /* screen size */
+@@ -131,10 +137,16 @@ struct Monitor {
+ 	unsigned int sellt;
+ 	unsigned int tagset[2];
+ 	Bool showbar;
++	Bool showbars[TAGNUM + 1];
+ 	Bool topbar;
+ 	Client *clients;
+ 	Client *sel;
+ 	Client *stack;
++	int attachmodes[TAGNUM + 1];
++	Client *lastfocus[TAGNUM + 1];
++	const Layout *lts[TAGNUM + 1];
++	int curtag;
++	int prevtag;
+ 	Monitor *next;
+ 	Window barwin;
+ 	const Layout *lt[2];
+@@ -154,7 +166,11 @@ static void applyrules(Client *c);
+ static Bool applysizehints(Client *c, int *x, int *y, int *w, int *h, Bool interact);
+ static void arrange(Monitor *m);
+ static void arrangemon(Monitor *m);
++static void attachaslast(Client *c);
++static void attachaside(Client *c);
++static void attachabove(Client *c);
+ static void attach(Client *c);
++static void setattachmode(const Arg *arg);
+ static void attachstack(Client *c);
+ static void buttonpress(XEvent *e);
+ static void checkotherwm(void);
+@@ -180,6 +196,7 @@ static void focus(Client *c);
+ static void focusin(XEvent *e);
+ static void focusmon(const Arg *arg);
+ static void focusstack(const Arg *arg);
++static void focustoggle(const Arg *arg);
+ static unsigned long getcolor(const char *colstr);
+ static Bool getrootptr(int *x, int *y);
+ static long getstate(Window w);
+@@ -401,9 +418,62 @@ arrangemon(Monitor *m) {
+ }
+ 
+ void
++attachaslast(Client *c) {
++	if(!c->mon->clients) {
++		c->next = c->mon->clients;
++		c->mon->clients = c;
++		return;
++	}
++	Client *at;
++	for(at = c->mon->clients; at->next; at = at->next);
++	c->next = at->next;
++	at->next = c;
++}
++
++void
++attachaside(Client *c) {
++	Client *at = nexttiled(c->mon->clients);
++	if(c->mon->sel == NULL || c->mon->sel->isfloating || !at) {
++		c->next = c->mon->clients;
++		c->mon->clients = c;
++		return;
++	}
++	c->next = at->next;
++	at->next = c;
++}
++
++void
++attachabove(Client *c) {
++	if(c->mon->sel == NULL || c->mon->sel == c->mon->clients || c->mon->sel->isfloating) {
++		attach(c);
++		c->next = c->mon->clients;
++		c->mon->clients = c;
++	}
++
++	Client *at;
++	for (at = c->mon->clients; at->next != c->mon->sel; at = at->next);
++	c->next = at->next;
++	at->next = c;
++}
++
++void
+ attach(Client *c) {
+-	c->next = c->mon->clients;
+-	c->mon->clients = c;
++	// TODO: use function pointer, damn!
++	if(selmon->attachmode==AttAbove)
++		attachabove(c);
++	else if(selmon->attachmode==AttAside)
++		attachaside(c);
++	else if(selmon->attachmode==AttAsLast)
++		attachaslast(c);
++	else {
++		c->next = c->mon->clients;
++		c->mon->clients = c;
++	}
++}
++
++void setattachmode(const Arg *arg) {
++	if(!arg) return;
++	selmon->attachmode = arg->i;
+ }
+ 
+ void
+@@ -610,7 +680,7 @@ createmon(void) {
+ 	if(!(m = (Monitor *)calloc(1, sizeof(Monitor))))
+ 		die("fatal: could not malloc() %u bytes\n", sizeof(Monitor));
+ 	m->tagset[0] = m->tagset[1] = 1;
+-	m->mfact = mfact;
++	m->mfact = m->mfacts[0];
+ 	m->showbar = showbar;
+ 	m->topbar = topbar;
+ 	m->lt[0] = &layouts[0];
+@@ -879,6 +949,17 @@ focusstack(const Arg *arg) {
+ 	}
+ }
+ 
++void
++focustoggle(const Arg *arg) {
++	Client *c;
++	if(!(c = selmon->sel))
++		return;
++        if(c && selmon->lastfocus[selmon->curtag]) {
++		focus(selmon->lastfocus[selmon->curtag]);
++		restack(c->mon);
++	}
++}
++
+ unsigned long
+ getcolor(const char *colstr) {
+ 	Colormap cmap = DefaultColormap(dpy, screen);
+@@ -1450,7 +1531,7 @@ setlayout(const Arg *arg) {
+ 	if(!arg || !arg->v || arg->v != selmon->lt[selmon->sellt])
+ 		selmon->sellt ^= 1;
+ 	if(arg && arg->v)
+-		selmon->lt[selmon->sellt] = (Layout *)arg->v;
++		selmon->lt[selmon->sellt] = selmon->lts[selmon->curtag] = (Layout *)arg->v;
+ 	strncpy(selmon->ltsymbol, selmon->lt[selmon->sellt]->symbol, sizeof selmon->ltsymbol);
+ 	if(selmon->sel)
+ 		arrange(selmon);
+@@ -1468,13 +1549,15 @@ setmfact(const Arg *arg) {
+ 	f = arg->f < 1.0 ? arg->f + selmon->mfact : arg->f - 1.0;
+ 	if(f < 0.1 || f > 0.9)
+ 		return;
+-	selmon->mfact = f;
++	selmon->mfact = selmon->mfacts[selmon->curtag] = f;
+ 	arrange(selmon);
+ }
+ 
+ void
+ setup(void) {
+ 	XSetWindowAttributes wa;
++	Monitor *m;
++	unsigned int i;
+ 
+ 	/* clean up any zombies immediately */
+ 	sigchld(0);
+@@ -1509,7 +1592,42 @@ setup(void) {
+ 	XSetLineAttributes(dpy, dc.gc, 1, LineSolid, CapButt, JoinMiter);
+ 	if(!dc.font.set)
+ 		XSetFont(dpy, dc.gc, dc.font.xfont->fid);
++	/* init tags */
++	for(m = mons; m; m = m->next)
++		m->curtag = m->prevtag = 1;
++	/* init mfacts */
++	for(m = mons; m; m = m->next) {
++		m->mfact = m->mfacts[0] = tagmwfact[0];
++		for(i=1; i < LENGTH(tags) + 1 ; i++) {
++			m->mfacts[i] = tagmwfact[i-1];
++		}
++	}
++	/* init layouts */
++	for(m = mons; m; m = m->next) {
++		m->lt[0] = m->lts[0] = &layouts[taglayout[0]];
++		for(i=1; i < LENGTH(tags) + 1; i++) {
++			m->lts[i] = &layouts[taglayout[i-1]];
++		}
++	}
++	/* init attachmodes */
++	for(m = mons; m; m = m->next) {
++		m->attachmode = m->attachmodes[0] = tagattachmode[0];
++		for(i=1; i < LENGTH(tags) + 1; i++) {
++			m->attachmodes[i] = tagattachmode[i-1];
++		}
++	}
+ 	/* init bars */
++	for(m = mons; m; m = m->next) {
++		for(i=0; i < LENGTH(tags) + 1; i++) {
++			m->showbars[i] = m->showbar;
++		}
++	}
++	/* init lastfocus */
++	for(m = mons; m; m = m->next) {
++		for(i=0; i < LENGTH(tags) + 1; i++) {
++			m->lastfocus[i]=NULL;
++		}
++	}
+ 	updatebars();
+ 	updatestatus();
+ 	/* EWMH support per view */
+@@ -1620,7 +1738,7 @@ tile(Monitor *m) {
+ 
+ void
+ togglebar(const Arg *arg) {
+-	selmon->showbar = !selmon->showbar;
++	selmon->showbar = selmon->showbars[selmon->curtag] = !selmon->showbar;
+ 	updatebarpos(selmon);
+ 	XMoveResizeWindow(dpy, selmon->barwin, selmon->wx, selmon->by, selmon->ww, bh);
+ 	arrange(selmon);
+@@ -1640,12 +1758,27 @@ togglefloating(const Arg *arg) {
+ void
+ toggletag(const Arg *arg) {
+ 	unsigned int newtags;
++	unsigned int i;
+ 
+ 	if(!selmon->sel)
+ 		return;
+ 	newtags = selmon->sel->tags ^ (arg->ui & TAGMASK);
+ 	if(newtags) {
+ 		selmon->sel->tags = newtags;
++		if(newtags == ~0) {
++			selmon->prevtag = selmon->curtag;
++			selmon->curtag = 0;
++		}
++		if(!(newtags & 1 << (selmon->curtag - 1))) {
++			selmon->prevtag = selmon->curtag;
++			for (i=0; !(newtags & 1 << i); i++);
++			selmon->curtag = i + 1;
++		}
++		selmon->sel->tags = newtags;
++		selmon->lt[selmon->sellt] = selmon->lts[selmon->curtag];
++		selmon->mfact = selmon->mfacts[selmon->curtag];
++		if (selmon->showbar != selmon->showbars[selmon->curtag])
++			togglebar(NULL);
+ 		arrange(selmon);
+ 	}
+ }
+@@ -1912,11 +2045,29 @@ updatewmhints(Client *c) {
+ 
+ void
+ view(const Arg *arg) {
++	unsigned int i;
++
+ 	if((arg->ui & TAGMASK) == selmon->tagset[selmon->seltags])
+ 		return;
+ 	selmon->seltags ^= 1; /* toggle sel tagset */
+-	if(arg->ui & TAGMASK)
++	if(arg->ui & TAGMASK) {
+ 		selmon->tagset[selmon->seltags] = arg->ui & TAGMASK;
++		selmon->prevtag = selmon->curtag;
++		if(arg->ui == ~0)
++			selmon->curtag = 0;
++		else {
++			for (i=0; !(arg->ui & 1 << i); i++);
++			selmon->curtag = i + 1;
++		}
++	} else {
++		selmon->prevtag= selmon->curtag ^ selmon->prevtag;
++		selmon->curtag^= selmon->prevtag;
++		selmon->prevtag= selmon->curtag ^ selmon->prevtag;
++	}
++	selmon->lt[selmon->sellt]= selmon->lts[selmon->curtag];
++	selmon->mfact = selmon->mfacts[selmon->curtag];
++	if(selmon->showbar != selmon->showbars[selmon->curtag])
++		togglebar(NULL);
+ 	arrange(selmon);
+ }
+ 

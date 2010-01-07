@@ -1,13 +1,13 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const char font[]            = "-*-fixed-*-*-*-*-12-*-*-*-*-*-iso10646-1";
-static const char normbordercolor[] = "#554444";
-static const char normbgcolor[]     = "#151515";
-static const char normfgcolor[]     = "#b3b3b3";
-static const char selbordercolor[]  = "#87b0ff";
-static const char selbgcolor[]      = "#151515";
-static const char selfgcolor[]      = "#87b0ff";
+static const char font[]            = "-*-fixed-*-*-*-*-10-*-*-*-*-*-iso10646-1";
+static const char normbordercolor[] = "#3d0000";
+static const char normbgcolor[]     = "#000000";
+static const char normfgcolor[]     = "#8F0D0D";
+static const char selbordercolor[]  = "#970000";
+static const char selbgcolor[]      = "#000000";
+static const char selfgcolor[]      = "#FF0000";
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const Bool showbar           = True;     /* False means no bar */
@@ -19,29 +19,38 @@ static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            True,        -1 },
-    { "Firefox",    NULL,       NULL,       1 << 1,     True },
-    { "Inkscape",   NULL,       NULL,       1 << 4,     True },
-    { "Pcmanfm",    NULL,       NULL,       1 << 5,     True },
-    { "MPlayer",    NULL,       NULL,       1 << 6,     True }, 
-    { "Sonata",     NULL,       NULL,       1 << 6,     True },
-    { "Skype",      NULL,       NULL,       1 << 2,     True },
-    { "Psi",        NULL,       NULL,       1 << 2,     True },
-    { "OpenOffice.org", NULL,     NULL,       1 << 7,     True },
-    { "Thunderbird-bin",     NULL,       NULL,       1 << 3,    True },
-    { "Evince",     NULL,       NULL,       1 << 8,     True },
+	{ "Firefox",    NULL,       NULL,       1 << 1,     True  -1 },
+	{ "Chrome",    NULL,       NULL,       1 << 1,     True  -1 },
+	{ "Opera",      NULL,       NULL,       1 << 1,     False -1 }	,
+	{ "Inkscape",   NULL,       NULL,       1 << 4,     True -1 },
+	{ "Pcmanfm",    NULL,       NULL,       1 << 5,     True -1 },
+	{ "MPlayer",    NULL,       NULL,       1 << 6,     True -1 }, 
+	{ "Sonata",     NULL,       NULL,       1 << 6,     True -1 },
+	{ "Skype",      NULL,       NULL,       1 << 2,     True -1 },
+	{ "Pidgin",     NULL,       NULL,       1 << 2,     True -1 },
+	{ "OpenOffice.org", NULL,     NULL,       1 << 7,     True -1 },
+	{ "Thunderbird-bin",     NULL,       NULL,       1 << 3,    True -1 },
+	{ "Evince",     NULL,       NULL,       1 << 8,     True -1 },
 };
 
 /* layout(s) */
 static const float mfact      = 0.55; /* factor of master area size [0.05..0.95] */
+static const float tagmwfact[] = { 0.6, 0.5, 0.7, 0.5, 0.7, 0.5, 0.5, 0.5, 0.5 };
 static const Bool resizehints = True; /* True means respect size hints in tiled resizals */
+static const int taglayout[] = { 3, 2, 0, 1, 0, 1, 0, 0, 0 };
+static const int tagattachmode[] = { AttNormal, AttAsLast, AttNormal, AttNormal, AttNormal, AttNormal, AttNormal, AttNormal, AttNormal };
 
 #include "gaplessgrid.c"
+static const int nmaster = 2;      /* default number of clients in master area */
+#include "nmaster-sym.c"   /* more than one client in the (tiling) master area */
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
-    { "+++",      gaplessgrid },
+	{ "+++",      gaplessgrid },
+	{ "-|=",      ntile },
+	{ "-|-",      nbstack },
 };
 
 /* key definitions */
@@ -57,15 +66,15 @@ static const Layout layouts[] = {
 
 /* commands */
 static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "urxvtc", NULL };
+static const char *termcmd[]  = { "xterm", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-    { MODKEY,                       XK_w,      spawn,           SHCMD("exec firefox") },
-    { MODKEY|ShiftMask,             XK_a,      spawn,           SHCMD("exec /home/dziq/bin/vol.sh +") },
-    { MODKEY|ShiftMask,             XK_z,      spawn,           SHCMD("exec /home/dziq/bin/vol.sh -") },
+	{ MODKEY,                       XK_w,      spawn,           SHCMD("exec firefox") },
+	{ MODKEY|ShiftMask,             XK_a,      spawn,           SHCMD("exec /home/dziq/bin/vol.sh +") },
+	{ MODKEY|ShiftMask,             XK_z,      spawn,           SHCMD("exec /home/dziq/bin/vol.sh -") },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -77,7 +86,14 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-    { MODKEY,                       XK_g,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[3]} },
+	/* nmaster */
+	{ MODKEY,                       XK_a,      incnmaster,     {.i = +1 } },
+	{ MODKEY,                       XK_z,      incnmaster,     {.i = -1 } },
+	{ MODKEY,                       XK_x,      setnmaster,     {.i = 2 } },
+	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0] } },
+	{ MODKEY,                       XK_b,      setlayout,      {.v = &layouts[1] } },
+	/* -- */
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -86,6 +102,11 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY|ShiftMask,		XK_n,	   setattachmode,  {.i =AttNormal} },
+	{ MODKEY|ShiftMask,		XK_b,	   setattachmode,  {.i =AttAbove} },
+	{ MODKEY|ShiftMask,		XK_s,	   setattachmode,  {.i =AttAside} },
+	{ MODKEY|ShiftMask,		XK_l,	   setattachmode,  {.i =AttAsLast} },
+	{ MODKEY,        		XK_Tab,	   focustoggle,    {0} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
