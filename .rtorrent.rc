@@ -9,7 +9,12 @@ max_peers=300
 use_udp_trackers=yes
 port_range = 49164-49164
 #scgi_local = 127.0.0.1:5000
+#scgi_port = 127.0.0.1:5000
 # _bg _fg colors, -1 for terminal default, 0~7 for colors
+##Colors
+#Options: done_fg_color, done_bg_color, active_fg_color, active_bg_color
+#Colors: 0 = black 1 = red 2 = green 3 = yellow 4 = blue 5 = magenta 6 = cyan 7 = white
+#Example: done_fg_color = 1
 done_fg_color = 2
 done_bg_color = -1
 active_fg_color = 1
