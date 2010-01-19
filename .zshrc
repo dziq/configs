@@ -1,3 +1,6 @@
+. /usr/libexec/mc/mc.sh
+#export AWT_TOOLKIT=MToolkit
+export LC_ALL="pl_PL.utf8"
 ###########################################################        
 # Options for zsh
 
@@ -6,9 +9,27 @@ export HISTSIZE=50000
 export SAVEHIST=50000
 #eval `dircolors -z` # This generates an error. Please see the discussion above.
 
-autoload -U compinit promptinit
-compinit
-promptinit
+## new style completion system
+autoload -U compinit; compinit
+# list of completers to use
+zstyle ':completion:*' completer _complete _match _approximate
+# allow approximate
+zstyle ':completion:*:match:*' original only
+zstyle ':completion:*:approximate:*' max-errors 1 numeric
+# selection prompt as menu
+zstyle ':completion:*' menu select=1
+# menuselection for pid completion
+zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:kill:*' force-list always
+zstyle ':completion:*:processes' command 'ps -au$USER'
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;32'
+# cd don't select parent dir
+zstyle ':completion:*:cd:*' ignore-parents parent pwd
+# complete with colors
+zstyle ':completion:*' list-colors ''
+# }}}
+
+
 setopt autopushd pushdminus pushdsilent pushdtohome
 setopt autocd
 setopt cdablevars
@@ -44,19 +65,25 @@ setopt nohup
 #PS1="[$BLUE%n$WHITE@$GREEN%U%m%u$NORM:$RED %2c$NORM]%(!.#.$) "
 #RPS1="$PR_LIGHT_YELLOW(%D{%d-%m %H:%M})$PR_NO_COLOR"
 
-autoload colors zsh/terminfo
-    if [[ "$terminfo[colors]" -ge 8 ]]; then
-   colors
-    fi
-    for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
-   eval PR_$color='%{$terminfo[bold]$fg[${(L)color}]%}'
-   eval PR_LIGHT_$color='%{$fg[${(L)color}]%}'
-   (( count = $count + 1 ))
-    done
-    PR_NO_COLOR="%{$terminfo[sgr0]%}"
-PS1="[$PR_BLUE%n$PR_WHITE@$PR_GREEN%U%m%u$PR_NO_COLOR:$PR_RED%2c$PR_NO_COLOR]%(!.#.$) "
-RPS1="$PR_LIGHT_YELLOW(%D{%d-%m %H:%M})$PR_NO_COLOR"
+#To odkomentowac
+#autoload colors zsh/terminfo
+#    if [[ "$terminfo[colors]" -ge 8 ]]; then
+#   colors
+#    fi
+#    for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
+#   eval PR_$color='%{$terminfo[bold]$fg[${(L)color}]%}'
+#   eval PR_LIGHT_$color='%{$fg[${(L)color}]%}'
+#   (( count = $count + 1 ))
+#    done
+#    PR_NO_COLOR="%{$terminfo[sgr0]%}"
+#PS1="[$PR_BLUE%n$PR_WHITE@$PR_GREEN%U%m%u$PR_NO_COLOR:$PR_RED%2c$PR_NO_COLOR]%(!.#.$) "
+#RPS1="$PR_LIGHT_YELLOW(%D{%d-%m %H:%M})$PR_NO_COLOR"
 
+# Prompt gentoo
+autoload -U compinit promptinit
+compinit
+promptinit; prompt gentoo
+setopt autocd
 
 # Vars used later on by zsh
 export EDITOR="vim"
@@ -122,7 +149,7 @@ alias -s PKGBUILD=$EDITOR
 # ssh aliases
 alias ssh1='ssh1 '
 alias ssh2='ssh2'
-alias ssh_repo='sshrepo'
+alias ssh_repo='2'
 # Normal aliases
 alias ls='ls --color=auto -F'
 alias lsd='ls -ld *(-/DN)'
@@ -135,16 +162,19 @@ alias dir='ls -1'
 alias ..='cd ..'
 alias hist="grep '$1' /home/dziq/.zsh_history"
 #alias irssi="irssi -c irc.freenode.net -n yyz"
+#alias sc="LANG=pl_PL.ISO-8859-2 screen"
 alias mem="free -m"
 alias iso="mkisofs -r -J -D -o"
-alias tu="tupac"
-alias pa="sudo pacman"
-alias jo="yaourt"
+##Arch specific
+#alias tu="tupac"
+#alias pa="sudo pacman"
+#alias po="sudo powerpill"
+#alias jo="yaourt"
 alias mocp="mocp -T T"
 alias ll='ls -lh --color=auto'
 alias du="du -h"
 alias DU="du -sh *"
-alias rapid="aria2c -s4 --http-user=user --http-passwd=pass"
+alias rapid="aria2c -s4 --http-user=juzer --http-passwd=pass"
 # command L equivalent to command |less
 alias -g L='|less' 
 
