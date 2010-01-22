@@ -8,9 +8,10 @@
 # [Comment-out next line so that we can use w3m even within X.]
 text/html;			mutt_netscape %s; test=RunningX
 text/html;			w3m %s; nametemplate=%s.html
-text/html;			w3m -dump %s; nametemplate=%s.html; \
-				    copiousoutput
+text/html;			w3m -I %{charset} -T text/html -dump; copiousoutput
 
+#text/html; elinks -dump %s; copiousoutpu
+#text/html; /usr/bin/html2text -nobs %s; copiousoutput; description=HTML Text 
 # Add capability to edit attachments from the compose menu.
 #
 # Mutt can only edit attachments if they have a mailcap edit entry.
@@ -72,3 +73,4 @@ application/ms-tnef;		tnef -w %s
 #application/octet-stream;	mutt_octet_view %s; copiousoutput
 
 image/*;			mutt_bgrun feh %s; 
+
