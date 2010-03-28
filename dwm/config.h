@@ -42,6 +42,7 @@ static const Bool resizehints = True; /* True means respect size hints in tiled 
 static const int taglayout[] = { 3, 2, 0, 1, 0, 1, 0, 0, 0 };
 static const int tagattachmode[] = { AttNormal, AttAsLast, AttNormal, AttNormal, AttNormal, AttNormal, AttNormal, AttNormal, AttNormal };
 
+#include "push.c"
 #include "gaplessgrid.c"
 static const int nmaster = 2;      /* default number of clients in master area */
 #include "nmaster-sym.c"   /* more than one client in the (tiling) master area */
@@ -91,8 +92,11 @@ static Key keys[] = {
 	{ MODKEY,                       XK_a,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_z,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_x,      setnmaster,     {.i = 2 } },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0] } },
-	{ MODKEY,                       XK_b,      setlayout,      {.v = &layouts[1] } },
+	{ MODKEY,                       XK_y,      setlayout,      {.v = &layouts[4] } },
+	{ MODKEY,                       XK_b,      setlayout,      {.v = &layouts[5] } },
+    /* push */
+    { MODKEY|ControlMask,           XK_j,           pushdown,       {0} },
+    { MODKEY|ControlMask,           XK_k,           pushup,         {0} },
 	/* -- */
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
