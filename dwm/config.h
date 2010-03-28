@@ -1,13 +1,14 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const char font[]            = "-*-fixed-*-*-*-*-10-*-*-*-*-*-iso10646-1";
-static const char normbordercolor[] = "#3d0000";
-static const char normbgcolor[]     = "#000000";
-static const char normfgcolor[]     = "#8F0D0D";
-static const char selbordercolor[]  = "#970000";
-static const char selbgcolor[]      = "#000000";
-static const char selfgcolor[]      = "#FF0000";
+/*static const char font[]            = "-*-terminus-*-*-*-*-12-*-*-*-*-*-iso10646-1";*/
+static const char font[]            = "Envy Code R 10";
+static const char normbordercolor[] = "#554444";
+static const char normbgcolor[]     = "#151515";
+static const char normfgcolor[]     = "#b3b3b3";
+static const char selbordercolor[]  = "#87b0ff";
+static const char selbgcolor[]      = "#151515";
+static const char selfgcolor[]      = "#87b0ff";
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const Bool showbar           = True;     /* False means no bar */
@@ -31,6 +32,7 @@ static const Rule rules[] = {
 	{ "OpenOffice.org", NULL,     NULL,       1 << 7,     True -1 },
 	{ "Thunderbird-bin",     NULL,       NULL,       1 << 3,    True -1 },
 	{ "Evince",     NULL,       NULL,       1 << 8,     True -1 },
+    { "trayer",         NULL,       NULL,       0,         False },
 };
 
 /* layout(s) */
@@ -66,15 +68,13 @@ static const Layout layouts[] = {
 
 /* commands */
 static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "xterm", NULL };
+static const char *termcmd[]  = { "urxvtc", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_w,      spawn,           SHCMD("exec firefox") },
-	{ MODKEY|ShiftMask,             XK_a,      spawn,           SHCMD("exec /home/dziq/bin/vol.sh +") },
-	{ MODKEY|ShiftMask,             XK_z,      spawn,           SHCMD("exec /home/dziq/bin/vol.sh -") },
+	{ MODKEY,                       XK_w,      spawn,           SHCMD("exec chromium") },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },

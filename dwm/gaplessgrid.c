@@ -9,28 +9,28 @@ gaplessgrid(Monitor *m) {
 		return;
 
 	/* grid dimensions */
-	for(cols = 0; cols <= n/2; cols++)
-		if(cols*cols >= n)
+	for(rows = 0; rows <= n/2; rows++)
+		if(rows*rows >= n)
 			break;
 	if(n == 5) /* set layout against the general calculation: not 1:2:2, but 2:3 */
-		cols = 2;
-	rows = n/cols;
+		rows = 2;
+	cols = n/rows;
 
 	/* window geometries */
-	cw = cols ? m->ww / cols : m->ww;
+	ch = rows ? m->wh / rows : m->wh;
 	cn = 0; /* current column number */
 	rn = 0; /* current row number */
 	for(i = 0, c = nexttiled(m->clients); c; i++, c = nexttiled(c->next)) {
-		if(i/rows + 1 > cols - n%cols)
-			rows = n/cols + 1;
-		ch = rows ? m->wh / rows : m->wh;
+		if(i/cols + 1 > rows - n%rows)
+			cols = n/rows + 1;
+		cw = cols ? m->ww / cols : m->ww;
 		cx = m->wx + cn*cw;
 		cy = m->wy + rn*ch;
 		resize(c, cx, cy, cw - 2 * c->bw, ch - 2 * c->bw, False);
-		rn++;
-		if(rn >= rows) {
-			rn = 0;
-			cn++;
+		cn++;
+		if(cn >= cols) {
+			cn = 0;
+			rn++;
 		}
 	}
 }
