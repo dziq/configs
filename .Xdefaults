@@ -1,17 +1,20 @@
-Xcursor.theme: simpleandsoft
+!Xcursor.theme: Vanilla-DMZ
+Xcursor.theme: Human
 !Xcursor.size:  16 
-!Xft.dpi:100
-!Xcursor.theme_core:     true
+!Xft.dpi:96
+Xcursor.theme_core:     true
 Xft.antialias:  1
 Xft.hinting:    1
+Xft.autohint: 1
 Xft.hintstyle:  hintslight
 Xft.rgba:       rgb
+!Xft.lcdfilter: lcdslight
 !!!Font
 !URxvt.font:     -*-terminus-*-*-*-*-12-*-*-*-*-*-iso10646-1
 !URxvt.boldFont:  -misc-fixed-medium-r-*-*-10-*-*-*-*-*-iso10646-1
 
-URxvt.font: xft:Lucida Console:pixelsize=12
-!URxvt.boldFont: xft:Lucida Console:pixelsize=12
+URxvt.font: xft:terminus-10
+!URxvt.boldFont: xft:Droid Sans Mono-11
 !!!Settings
 !URxvt*background:grey10
 URxvt*cursorColor:#ffffff
@@ -20,12 +23,21 @@ URxvt*title: Terminal
 URxvt.geometry: 100x35+30+100
 URxvt.scrollBar: false
 URxvt.xftAntialias: true
-!URxvt*depth:                32
-!URxvt*background:        rgba:0000/0000/0000/dddd
+URxvt*depth:                32
+URxvt*background:        rgba:0000/0000/0000/dddd
 URxvt*perl-ext-common: default,matcher
-URxvt*urlLauncher: chromium-bin
+URxvt.matcher.rend.0: Uline Bold fg8 bg1
+URxvt*urlLauncher: opera
 URxvt*matcher.button: 1
-Urxvt.inheritPixmap: true
+! grey
+URxvt.tabbed.tabbar-fg: 8 
+! ! black
+URxvt.tabbed.tabbar-bg: #000
+! ! white
+URxvt.tabbed.tab-fg:    7
+! ! blue
+URxvt.tabbed.tab-bg:    4
+!Urxvt.inheritPixmap: true
 !URxvt.transparent: true
 !URxvt.tintColor:white
 !URxvt.shading: 15 
@@ -41,7 +53,7 @@ URxvt.internalBorder: 0
 URxvt.externalBorder: 0
 URxvt.cursorBlink: True
 URxvt.visualBell: False
-URxvt.urgentOnBell:  true
+URxvt.urgentOnBell:  True
 !URxvt.borderLess:	true
 
 !
@@ -62,7 +74,7 @@ xterm*boldMode:                 false
 !xterm*boldFont:                     -misc-fixed-medium-r-*-*-10-*-*-*-*-*-iso10646-1
 !xterm*font:                    -*-lucida console-*-*-*-*-10-*-*-*-*-*-iso10646-1
 !xterm*boldFont:                -*-lucida console-*-*-*-*-10-*-*-*-*-*-iso10646-1
-xterm*faceName:     Lucida Console
+xterm*faceName:     Envy Code R
 xterm*faceSize:     10
 !
 xterm*geometry:                 100x30
@@ -90,24 +102,109 @@ xterm*color14:     #93e0e3
 xterm*color15:     #ffffff
 
 
+!xterm*background:  #3f3f3f
+!urxvt*foreground:  #dcdccc
+!urxvt*color0:      #1E2320
+!urxvt*color1:      #705050
+!urxvt*color2:      #60b48a
+!urxvt*color3:      #dfaf8f
+!urxvt*color4:      #506070
+!urxvt*color5:      #dc8cc3
+!urxvt*color6:      #8cd0d3
+!urxvt*color7:      #dcdccc
+!urxvt*color8:      #709080
+!urxvt*color9:      #dca3a3
+!urxvt*color10:     #c3bf9f
+!urxvt*color11:     #f0dfaf
+!urxvt*color12:     #94bff3
+!urxvt*color13:     #ec93d3
+!urxvt*color14:     #93e0e3
+!urxvt*color15:     #ffffff
+!
 !Colors
-!*background: #1e1e1e
-!*foreground: #a0a0a0
-*color0: #1e1e1e
-*color8: #555753
-*color1: #c8202d
-*color9: #a81e30
-*color2: #accd37
-*color10: #d0dd41
-*color3: #f7d325
-*color11: #f5b915
-*color4: #3465A4
-*color12: #729FCF
-*color5: #75507B
-*color13: #AD7FA8
-*color6: #23a3a0
-*color14: #2e8483
-*color7: #9f9f9f
-*color15: #e0e0e0
-*foreground: #DDEEDD
-*background: #1C1C1C
+!urxvt*background: #1f1f1f
+!urxvt*foreground: #a0a0a0
+!urxvt*color0: #1e1e1e
+!urxvt*color8: #555753
+!urxvt*color1: #c8202d
+!urxvt*color9: #a81e30
+!urxvt*color2: #accd37
+!urxvt*color10: #d0dd41
+!urxvt*color3: #f7d325
+!urxvt*color11: #f5b915
+!urxvt*color4: #3465A4
+!urxvt*color12: #729FCF
+!urxvt*color5: #75507B
+!urxvt*color13: #AD7FA8
+!urxvt*color6: #23a3a0
+!urxvt*color14: #2e8483
+!urxvt*color7: #9f9f9f
+!urxvt*color15: #e0e0e0
+!urxvt*foreground: #DDEEDD
+!urxvt*background: #1C1C1C
+
+!urxvt*foreground:#a0a0a0
+!urxvt*background:#1B1D1E
+
+!black
+!urxvt*color0:    #1B1D1E
+!urxvt*color8:    #505354
+!red
+!urxvt*color1:    #F92672
+!urxvt*color9:    #FF669D
+!green
+!urxvt*color2:    #A6E22E
+!urxvt*color10:   #BEED5F
+!yellow
+!urxvt*color3:    #FD971F
+!urxvt*color11:   #E6DB74
+!blue
+!urxvt*color4:    #66D9EF
+!urxvt*color12:   #66D9EF
+!magenta
+!urxvt*color5:    #9E6FFE
+!urxvt*color13:   #9E6FFE
+!cyan
+!urxvt*color6:    #5E7175
+!urxvt*color14:   #A3BABF
+!white
+!urxvt*color7:    #CCCCC6
+!urxvt*color15:   #F8F8F2
+!
+!urxvt*foreground: #696969
+!*background: #282626
+!urxvt*color0: #363636
+!urxvt*color8: #424242
+!urxvt*color1: #C37561
+!urxvt*color9:  #D19485
+!urxvt*color2: #A0A57E
+!urxvt*color10: #B6B99D
+!urxvt*color3: #D1A375
+!urxvt*color11: #DEBC9C
+!urxvt*color4: #7985A3
+!urxvt*color12: #98A1B9
+!urxvt*color5: #AB716D
+!urxvt*color13: #BE918E
+!urxvt*color6: #98B9B1
+!urxvt*color14: #CBE6CB
+!urxvt*color7: #D0D0D0
+!urxvt*color15: #E6E6E6
+
+!*background: rgb:1a/1a/1a
+urxvt*foreground: rgb:d6/d6/d6
+urxvt*color0:     rgb:00/00/00
+urxvt*color1:     rgb:98/56/5e
+urxvt*color2:     rgb:66/82/5d
+urxvt*color3:     rgb:96/91/76
+urxvt*color4:     rgb:4d/65/85
+urxvt*color5:     rgb:96/73/95
+urxvt*color6:     rgb:5f/7f/7b
+urxvt*color7:     rgb:b3/b3/b3
+urxvt*color8:     rgb:73/73/73
+urxvt*color9:     rgb:cf/a3/a9
+urxvt*color10:    rgb:ca/f7/bb
+urxvt*color11:    rgb:ff/f8/bc
+urxvt*color12:    rgb:83/a3/be
+urxvt*color13:    rgb:bb/a9/cf
+urxvt*color14:    rgb:96/cc/cc
+urxvt*color15:    rgb:ff/ff/ff
