@@ -1,8 +1,8 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-/*static const char font[]            = "-*-terminus-*-*-*-*-12-*-*-*-*-*-iso10646-1";*/
-static const char font[]            = "Envy Code R 10";
+/*static const char font[]            = "-*-fixed-*-r-normal-*-10-*-*-*-*-*-iso10646-1";*/
+static const char font[]            = "terminus 8";
 static const char normbordercolor[] = "#554444";
 static const char normbgcolor[]     = "#151515";
 static const char normfgcolor[]     = "#b3b3b3";
@@ -75,7 +75,7 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_w,      spawn,           SHCMD("exec chromium") },
+	{ MODKEY,                       XK_w,      spawn,           SHCMD("exec opera") },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
