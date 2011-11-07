@@ -1,0 +1,21 @@
+urxvt*background: #1f1f1f
+urxvt*foreground: #a0a0a0
+urxvt*color0: #1e1e1e
+urxvt*color8: #555753
+urxvt*color1: #c8202d
+urxvt*color9: #a81e30
+urxvt*color2: #accd37
+urxvt*color10: #d0dd41
+urxvt*color3: #f7d325
+urxvt*color11: #f5b915
+urxvt*color4: #3465A4
+urxvt*color12: #729FCF
+urxvt*color5: #75507B
+urxvt*color13: #AD7FA8
+urxvt*color6: #23a3a0
+urxvt*color14: #2e8483
+urxvt*color7: #9f9f9f
+urxvt*color15: #e0e0e0
+urxvt*foreground: #DDEEDD
+urxvt*background: #1C1C1C
+
